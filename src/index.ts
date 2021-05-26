@@ -1,5 +1,5 @@
-import axios, {AxiosResponse} from 'axios';
-import {NextFunction, Request, Response} from 'express';
+import axios, { AxiosResponse } from 'axios';
+import { NextFunction, Request, Response } from 'express';
 
 import Fetch from './Types/Fetch';
 
