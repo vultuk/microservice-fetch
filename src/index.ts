@@ -1,5 +1,5 @@
-import axios, { AxiosResponse } from 'axios';
-import { NextFunction, Request, Response } from 'express';
+import axios, {AxiosResponse} from 'axios';
+import {NextFunction, Request, Response} from 'express';
 
 import Fetch from './Types/Fetch';
 
@@ -17,11 +17,18 @@ export default () => (req: Request, res: Response, next: NextFunction) => {
   req.fetch = {
     get: <T = any>(uri: string, headers: any[] = []) => (path: string = '', headersOverride: any[] = []): Promise<T> =>
       axios.get<T>(`${uri}/${path}`).then((response: AxiosResponse<T>) => response.data),
-    post: <T = any, D = any>(uri: string, headers: any[] = []) => (
+    post: <T = any, D = any>(uri: string, headers: any = {}) => (
       data: D,
       path: string = '',
-      headersOverride: any[] = [],
-    ): Promise<T> => axios.post<T>(`${uri}/${path}`, data).then((response: AxiosResponse<T>) => response.data),
+      headersOverride: any = {},
+    ): Promise<T> =>
+      axios
+        .post<T>(
+          `${uri}/${path}`,
+          data,
+          headers || headersOverride ? { headers: { ...headers, ...headersOverride } } : undefined,
+        )
+        .then((response: AxiosResponse<T>) => response.data),
     patch: <T = any, D = any>(uri: string, headers: any[] = []) => (
       data: D,
       path: string = '',
