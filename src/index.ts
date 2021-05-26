@@ -1,14 +1,15 @@
 import axios, {AxiosResponse} from 'axios';
 import {NextFunction, Request, Response} from 'express';
 
-import Fetch from './Types/Fetch';
+import fetch from './Types/Fetch';
 
 export * from './Types';
+export const Fetch = fetch;
 
 declare global {
   namespace Express {
     interface Request {
-      fetch: Fetch;
+      fetch: fetch;
     }
   }
 }
