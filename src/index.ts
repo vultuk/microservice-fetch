@@ -1,5 +1,5 @@
-import axios, { AxiosResponse } from 'axios';
-import { NextFunction, Request, Response } from 'express';
+import axios, {AxiosResponse} from 'axios';
+import {NextFunction, Request, Response} from 'express';
 
 import Fetch from './Types/Fetch';
 
@@ -40,9 +40,11 @@ export default () => (req: Request, res: Response, next: NextFunction) => {
       headersOverride: any = {},
     ): Promise<T> =>
       axios
-        .patch<T>(`${uri}/${path}`, data, {
-          headers: headers || headersOverride ? { headers: { ...headers, ...headersOverride } } : undefined,
-        })
+        .patch<T>(
+          `${uri}/${path}`,
+          data,
+          headers || headersOverride ? { headers: { ...headers, ...headersOverride } } : undefined,
+        )
         .then((response: AxiosResponse<T>) => response.data),
     put: <T = any, D = any>(uri: string, headers: any = {}) => (
       data: D,
@@ -50,15 +52,18 @@ export default () => (req: Request, res: Response, next: NextFunction) => {
       headersOverride: any = {},
     ): Promise<T> =>
       axios
-        .put<T>(`${uri}/${path}`, data, {
-          headers: headers || headersOverride ? { headers: { ...headers, ...headersOverride } } : undefined,
-        })
+        .put<T>(
+          `${uri}/${path}`,
+          data,
+          headers || headersOverride ? { headers: { ...headers, ...headersOverride } } : undefined,
+        )
         .then((response: AxiosResponse<T>) => response.data),
     delete: <T = any>(uri: string, headers: any = {}) => (path: string = '', headersOverride: any = {}): Promise<T> =>
       axios
-        .delete<T>(`${uri}/${path}`, {
-          headers: headers || headersOverride ? { headers: { ...headers, ...headersOverride } } : undefined,
-        })
+        .delete<T>(
+          `${uri}/${path}`,
+          headers || headersOverride ? { headers: { ...headers, ...headersOverride } } : undefined,
+        )
         .then((response: AxiosResponse<T>) => response.data),
   };
 
